@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
-const PORT = 3000;
+const PORT = 3248;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.post("/api/bot", async (req, res) => {
           [
             {
               text: "Start Now!",
-              web_url: { url: `${WEB_URL}?startapp=fullscreen` },
+              web_app: { url: `${WEB_URL}?startapp=fullscreen` },
             },
           ],
         ],
@@ -47,7 +47,6 @@ app.post("/api/bot", async (req, res) => {
           reply_markup: JSON.stringify(inlineKeyboardMarkup),
         }),
       });
-      console.log("Response", response);
       res.status(200).send("Success");
     } catch (error) {
       console.error("Error", error);
