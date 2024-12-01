@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const verifyRoute = require("./routes/verify");
 dotenv.config();
 const app = express();
 const PORT = 3248;
@@ -15,6 +16,8 @@ const WEB_URL = "https://unfold-24-ace.onrender.com";
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.use("/api/verify", verifyRoute);
 
 app.post("/api/bot", async (req, res) => {
   console.log("Request Body", JSON.stringify(req.body));
