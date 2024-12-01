@@ -21,7 +21,7 @@ app.post("/api/bot", async (req, res) => {
   const message = req.body.message;
 
   if (message && message.text === "/start") {
-    const response = `Welcome to Ez Portfolio Manager Mini App. You can use this automatically manage your portfolio.`;
+    const responseText = `Welcome to Ez Portfolio Manager Mini App. You can use this automatically manage your portfolio.`;
 
     try {
       const inlineKeyboardMarkup = {
@@ -42,13 +42,16 @@ app.post("/api/bot", async (req, res) => {
         },
         body: JSON.stringify({
           chat_id: message.chat.id,
-          text: response,
+          text: responseText,
           parse_mode: "Markdown",
           reply_markup: JSON.stringify(inlineKeyboardMarkup),
         }),
       });
+      console.log("Response", response);
+      res.status(200).send("Success");
     } catch (error) {
       console.error("Error", error);
+      res.status(500).send("Error");
     }
   } else {
     console.log("Invalid Request");
