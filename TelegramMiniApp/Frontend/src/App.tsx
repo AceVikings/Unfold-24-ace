@@ -7,7 +7,12 @@ function App() {
   useEffect(() => {
     console.log(wallets);
   }, []);
-  return <div></div>;
+  return (
+    <div>
+      <h1>Telegram Mini App</h1>
+      <p>Wallets: {wallets.length}</p>
+    </div>
+  );
 }
 
 export default App;
