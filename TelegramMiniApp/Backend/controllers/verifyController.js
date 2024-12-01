@@ -1,8 +1,6 @@
-import { create } from "domain";
-import { url } from "inspector/promises";
-
 const crypto = require("crypto");
-export const verifyInitData = async (req, res) => {
+
+const verifyInitData = async (req, res) => {
   try {
     const { initData } = req.body;
     const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -70,3 +68,5 @@ export const verifyInitData = async (req, res) => {
     });
   }
 };
+
+module.exports = { verifyInitData };
