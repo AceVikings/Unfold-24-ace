@@ -2,9 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import PrivyWalletProvider from "./context/PrivyProvider.jsx";
-import UserAuthContext from "./context/UserAuthContext";
-import { init, backButton } from "@telegram-apps/sdk-react";
+import PrivyWalletProvider from "./context/PrivyProvider.js";
+import UserAuthContext from "./context/UserAuthContext.tsx";
+import { init } from "@telegram-apps/sdk-react";
 
 // Initialize the package.
 init();
