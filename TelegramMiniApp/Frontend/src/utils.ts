@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
-export const setTokenCookies = (accessToken, refreshToken) => {
+export const setTokenCookies = (accessToken: any, refreshToken: any) => {
   // Decode the access token to extract its expiration time (exp)
 
   if (accessToken) {

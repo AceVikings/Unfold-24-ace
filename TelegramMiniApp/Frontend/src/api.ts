@@ -43,7 +43,7 @@ api.interceptors.response.use(
           const newAccessToken = refreshResponse.data.result.access_token;
 
           // Store the new access token in memory or storage
-          setTokenCookies(newAccessToken);
+          setTokenCookies(newAccessToken, refreshToken);
 
           // Update the original request with the new token and retry
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
