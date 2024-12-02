@@ -4,7 +4,7 @@ import { setTokenCookies } from "./utils";
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_ENDPOINT,
+  baseURL: import.meta.env.VITE_PUBLIC_API_ENDPOINT,
 });
 
 // Add a request interceptor to attach the access token to each request
@@ -36,7 +36,7 @@ api.interceptors.response.use(
       if (refreshToken) {
         try {
           const refreshResponse = await axios.post(
-            `${import.meta.env.VITE_API_ENDPOINT}/users/refresh_token`,
+            `${import.meta.env.VITE_PUBLIC_API_ENDPOINT}/users/refresh_token`,
             {},
             { headers: { Authorization: `Bearer ${refreshToken}` } }
           );

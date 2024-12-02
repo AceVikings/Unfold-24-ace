@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 export const setTokenCookies = (accessToken: any, refreshToken: any) => {
   // Decode the access token to extract its expiration time (exp)
-
+  console.log(accessToken, refreshToken);
   if (accessToken) {
     const decodedAccessToken = jwtDecode(accessToken);
     const accessTokenExpiry = decodedAccessToken.exp; // Unix timestamp (seconds)

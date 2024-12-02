@@ -50,6 +50,7 @@ const UserAuthContext = ({ children }: UserAuthContextProps) => {
     );
 
     setUserDetails(userInfo?.result?.user);
+    console.log("HERE, CREATED");
     setIsUserCreated(true);
     setTxDetails(userInfo?.result?.signup_tx || {});
   }, []);
@@ -58,6 +59,8 @@ const UserAuthContext = ({ children }: UserAuthContextProps) => {
     const { data: userInfo } = await api.get("/users");
     setUserDetails(userInfo?.result?.user);
     setIsUserCreated(true);
+    console.log("HERE, CREATED");
+
     setTxDetails(userInfo?.result?.signup_tx || {});
   }, []);
 
@@ -66,7 +69,7 @@ const UserAuthContext = ({ children }: UserAuthContextProps) => {
       if (initDataRaw) {
         try {
           const { data } = await axios.post(
-            `${import.meta.env.VITE_VERIFY_API_ENDPOINT}/verify`,
+            `${import.meta.env.VITE_PUBLIC_VERIFY_API_ENDPOINT}`,
             {
               initData: initDataRaw,
             }

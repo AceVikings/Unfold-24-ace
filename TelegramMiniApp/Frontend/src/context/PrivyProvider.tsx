@@ -4,7 +4,7 @@ import { defineChain } from "viem";
 import { ReactNode, useCallback, useEffect } from "react";
 import { PrivyProvider, usePrivy, useWallets } from "@privy-io/react-auth";
 import { useUserDetails } from "./UserAuthContext";
-import { ethers } from "ethers";
+import { ContractRunner, ethers } from "ethers";
 import Cookies from "js-cookie";
 import api from "../api";
 
@@ -39,9 +39,10 @@ interface PrivyWrapperProps {
   children: ReactNode;
 }
 const PrivyWrapper = ({ children }: PrivyWrapperProps) => {
-  const { txDetails, userDetails, getUserDetails } = useUserDetails();
+  const { txDetails, userDetails, getUserDetails, isUserCreated } =
+    useUserDetails();
   const { wallets } = useWallets();
-  const { user, authenticated, createWallet } = usePrivy();
+  const { user, authenticated, createWallet, ready } = usePrivy();
 
   const mintXId = async () => {
     const startTime = performance.now();
@@ -61,7 +62,7 @@ const PrivyWrapper = ({ children }: PrivyWrapperProps) => {
         const contract = new ethers.Contract(
           txDetails.contract_address,
           txDetails.contract_abi,
-          signer
+          signer as any
         );
         const txResponse = await signer?.sendTransaction({
           to: txDetails.contract_address,
@@ -106,14 +107,31 @@ const PrivyWrapper = ({ children }: PrivyWrapperProps) => {
 
   useEffect(() => {
     (async () => {
-      if (authenticated) {
+      console.log(authenticated, ready);
+      if (ready && authenticated) {
+        console.log("AUTHENTICATED");
+
         if (!user?.wallet) {
+          console.log("CREATE WALLET");
           await createWallet();
         }
       }
     })();
-  }, [authenticated]);
-  return <>{wallets.length > 0 ? children : <p>Loading...</p>}</>;
+  }, [authenticated, ready]);
+  return (
+    <div className="text-white bg-black font-poppins  h-screen flex items-center justify-center">
+      {wallets.length > 0 ? (
+        children
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <div className="">
+            <img src="/logo.png" alt="logo" className="h-8 animate-bounce" />
+          </div>
+          <p>Loading</p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 interface PrivyWalletProviderProps {
@@ -125,8 +143,10 @@ export default function PrivyWalletProvider({
   const { isUserCreated } = useUserDetails();
 
   const getCustomToken = useCallback(async () => {
+    console.log(isUserCreated, "isUserCreated");
     if (isUserCreated) {
       const idToken = Cookies.get("access_token");
+      console.log(idToken, "idToken");
       return idToken;
     } else {
       return undefined;
@@ -146,7 +166,7 @@ export default function PrivyWalletProvider({
           showWalletLoginFirst: false,
         },
         customAuth: {
-          isLoading: isUserCreated,
+          isLoading: !isUserCreated,
           getCustomAccessToken: getCustomToken,
         },
       }}

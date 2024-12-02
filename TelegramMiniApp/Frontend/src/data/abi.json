@@ -1,0 +1,69 @@
+[
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "nativeToken",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "stableCoin",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stableCoinAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct PortfolioManager.Portfolio",
+        "name": "portfolio",
+        "type": "tuple"
+      }
+    ],
+    "name": "addPortfolio",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getPortfolio",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "nativeToken",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "stableCoin",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stableCoinAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct PortfolioManager.Portfolio[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawPortfolio",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
